@@ -1,36 +1,36 @@
 call plug#begin()
-Plug 'tpope/vim-fugitive'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'huytd/vim-quickrun'
-Plug 'sheerun/vim-polyglot'
-Plug 'othree/html5.vim'
+Plug 'atelierbram/Base2Tone-vim'
 Plug 'cakebaker/scss-syntax.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/nerdtree'
-Plug 'itchyny/lightline.vim'
-Plug 'ryanoasis/vim-devicons'
 Plug 'easymotion/vim-easymotion'
-Plug 'unkiwii/vim-nerdtree-sync'
-Plug 'vim-scripts/matchit.zip'
-Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
-Plug 'haya14busa/incsearch.vim'
-Plug 'tpope/vim-abolish' " For case perserved subtitue :%S
-Plug 'scrooloose/nerdcommenter'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'eugen0329/vim-esearch'
+Plug 'leafgarland/typescript-vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'huytd/vim-quickrun'
+Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
 Plug 'junegunn/fzf.vim'
-Plug 't9md/vim-choosewin'
-Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'kaicataldo/material.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'atelierbram/Base2Tone-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'ryanoasis/vim-devicons'
+Plug 'sheerun/vim-polyglot'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-abolish' " For case perserved subtitue :%S
+Plug 'tpope/vim-surround'
+Plug 't9md/vim-choosewin'
+Plug 'tpope/vim-fugitive'
 Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'unkiwii/vim-nerdtree-sync'
+Plug 'vim-scripts/matchit.zip'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 filetype plugin indent on
