@@ -1,3 +1,10 @@
+" this will install vim-plug if not installed
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
+endif
+
 call plug#begin()
 Plug 'atelierbram/Base2Tone-vim'
 Plug 'cakebaker/scss-syntax.vim'
@@ -9,9 +16,23 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'huytd/vim-quickrun'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
+
+" Finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Auto 
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']  " list of CoC extensions needed
+
+" end coc auto
+
+" JS config
+let g:javascript_plugin_jsdoc = 1
+let g:polyglot_disabled = ['jsx', 'tsx', 'js', 'ts']
+let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
+
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'peitalin/vim-jsx-typescript'
@@ -30,9 +51,11 @@ Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'vim-scripts/matchit.zip'
 Plug 'Yggdroot/indentLine'
+Plug 'voldikss/vim-floaterm'
 call plug#end()
 
-filetype plugin indent on
+filetype plugin indent on" JS config
+
 
 "Todo file
 autocmd BufNewFile,BufRead *.todo set syntax=todo
@@ -67,13 +90,19 @@ set relativenumber
 " Vim color highlighting
 let g:Hexokinase_highlighters = ['virtual']
 let g:Hexokinase_virtualText = '▩'
-
+    
 " FZF config
 let g:fzf_layout = { 'window': {
       \ 'width': 0.9,
       \ 'height': 0.7,
       \ 'highlight': 'Comment',
       \ 'rounded': v:false } }
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}      
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 " Indent Guide
@@ -87,14 +116,10 @@ let g:esearch = {
   \}
 call esearch#out#win#map('<Enter>', 'tab')
 
-" JS config
-let g:javascript_plugin_jsdoc = 1
-let g:polyglot_disabled = ['jsx', 'tsx', 'js', 'ts']
-let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
-
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
+
 
 " I don't use recording, don't judge me
 map q <Nop>
@@ -165,55 +190,6 @@ map g/ <Plug>(incsearch-stay)
 
 set wildoptions=pum
 set pumblend=1
-" Floating Term
-let s:float_term_border_win = 0
-let s:float_term_win = 0
-function! FloatTerm(...)
-  " Configuration
-  let height = float2nr((&lines - 2) * 0.6)
-  let row = float2nr((&lines - height) / 2)
-  let width = float2nr(&columns * 0.6)
-  let col = float2nr((&columns - width) / 2)
-  " Border Window
-  let border_opts = {
-        \ 'relative': 'editor',
-        \ 'row': row - 1,
-        \ 'col': col - 2,
-        \ 'width': width + 4,
-        \ 'height': height + 2,
-        \ 'style': 'minimal'
-        \ }
-  " Terminal Window
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': row,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-  let top = "╭" . repeat("─", width + 2) . "╮"
-  let mid = "│" . repeat(" ", width + 2) . "│"
-  let bot = "╰" . repeat("─", width + 2) . "╯"
-  let lines = [top] + repeat([mid], height) + [bot]
-  let bbuf = nvim_create_buf(v:false, v:true)
-  call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
-  let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
-  let buf = nvim_create_buf(v:false, v:true)
-  let s:float_term_win = nvim_open_win(buf, v:true, opts)
-  " Styling
-  hi FloatWinBorder guifg=#87bb7c
-  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatWinBorder')
-  call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
-  if a:0 == 0
-    terminal
-  else
-    call termopen(a:1)
-  endif
-  startinsert
-  " Close border window when terminal window close
-  autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
-endfunction
 
 " Key binding
 let mapleader=" "
@@ -233,11 +209,13 @@ nnoremap <Leader>sr :so .vimsession<CR>
 nnoremap <Leader><Leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>n :NERDTree<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
+
 "Buffer
 nnoremap <Leader>tn :tabn<CR>
 nnoremap <Leader>tp :tabp<CR>
 nnoremap <Leader>tc :tabe<CR>
 nnoremap <Leader>tx :tabclose<CR>
+
 " Jump window
 nmap <Leader>ww <Plug>(choosewin)
 
@@ -261,6 +239,10 @@ let g:choosewin_overlay_enable = 1
 
 " NERDTree config
 let NERDTreeMinimalUI=1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
 
 " Turn off whitespaces compare and folding in vimdiff
 set splitright
