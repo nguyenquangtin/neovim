@@ -9,6 +9,7 @@ call plug#begin()
 Plug 'atelierbram/Base2Tone-vim'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'eugen0329/vim-esearch'
 Plug 'leafgarland/typescript-vim'
@@ -220,9 +221,18 @@ nnoremap <Leader>tx :tabclose<CR>
 nmap <Leader>ww <Plug>(choosewin)
 
 " Open terminal
-nnoremap <Leader>at :call FloatTerm()<CR>
-" Open tig, yes TIG, A FLOATING TIGGGG!!!!!!
-nnoremap <Leader>ag :call FloatTerm('"tig"')<CR>
+nnoremap <Leader>at :call FloatermNew('"tig"')<CR>
+
+" FloatTerm
+nnoremap   <silent>   <F7>    :FloatermNew<CR>
+tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
+nnoremap   <silent>   <F8>    :FloatermPrev<CR>
+tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
+nnoremap   <silent>   <F9>    :FloatermNext<CR>
+tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
+
 
 nnoremap <silent> <Leader>pf :Files<CR>
 nnoremap <silent> <Leader>pt :Buffers<CR>
