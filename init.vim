@@ -262,7 +262,7 @@ set diffopt+=vertical
 nnoremap <Leader>1 :diffget 1<CR>:diffupdate<CR>
 nnoremap <Leader>2 :diffget 2<CR>:diffupdate<CR>
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 function! DeleteCurrentFileAndBuffer()
   call delete(expand('%'))
