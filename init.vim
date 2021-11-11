@@ -13,6 +13,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'eugen0329/vim-esearch'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'haya14busa/incsearch.vim'
 Plug 'huytd/vim-quickrun'
 Plug 'itchyny/lightline.vim'
@@ -22,11 +23,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Auto 
+" Auto
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
 
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']  " list of CoC extensions needed
-
+let g:coc_global_extensions = ['coc-tslint-plugin','coc-tsserver','coc-css','coc-html','coc-json', 'coc-prettier' ]  " list of CoC extensions needed
 " end coc auto
 
 " JS config
@@ -40,7 +40,6 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
@@ -53,6 +52,7 @@ Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'vim-scripts/matchit.zip'
 Plug 'Yggdroot/indentLine'
 Plug 'voldikss/vim-floaterm'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 call plug#end()
 
 filetype plugin indent on" JS config
@@ -70,12 +70,9 @@ set nobackup
 set nowritebackup
 set mouse=a " enable mouse for all mode
 set cursorline
-
 set foldmethod=indent
 set foldlevel=99
-
 let g:is_posix = 1
-
 set noswapfile
 set nojoinspaces
 set nowrap
@@ -91,7 +88,7 @@ set relativenumber
 " Vim color highlighting
 let g:Hexokinase_highlighters = ['virtual']
 let g:Hexokinase_virtualText = '▩'
-    
+
 " FZF config
 let g:fzf_layout = { 'window': {
       \ 'width': 0.9,
@@ -103,7 +100,7 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
-  \}      
+  \}
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 " Indent Guide
@@ -121,35 +118,6 @@ call esearch#out#win#map('<Enter>', 'tab')
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
 
-
-" I don't use recording, don't judge me
-map q <Nop>
-inoremap jk <ESC>
-vnoremap <M-/> <Esc>/\%V
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-nnoremap <ESC><ESC> :nohlsearch<CR>
-nnoremap L l
-nnoremap H h
-nnoremap l w
-nnoremap h b
-
-vnoremap p "_dP
-
-" Map Emacs like movement in Insert mode
-" inoremap <C-n> <Down>
-" inoremap <C-p> <Up>
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>^
-
-" Remap scrolling
-nnoremap <C-k> <C-u>
-nnoremap <C-j> <C-d>
-
 set background=dark
 " let g:quantum_black=1
 colo bright-quantum
@@ -160,16 +128,13 @@ endif
 
 set listchars=tab:>·,trail:~,extends:>,precedes:<
 set list
-
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
-
 set autoindent
 set smartindent
 
@@ -191,58 +156,6 @@ map g/ <Plug>(incsearch-stay)
 
 set wildoptions=pum
 set pumblend=1
-
-" Key binding
-let mapleader=" "
-nnoremap <Leader>l :vsplit<CR>
-nnoremap <Leader>k :split<CR>
-nnoremap <Leader>wh :wincmd h<CR>
-nnoremap <Leader>wl :wincmd l<CR>
-nnoremap <Leader>wk :wincmd k<CR>
-nnoremap <Leader>wj :wincmd j<CR>
-nnoremap <Leader>w= :wincmd =<CR>
-nnoremap <Leader>e :QuickRunExecute<CR>
-nnoremap <Leader>wb :e#<CR>
-nnoremap <Leader>qq :bd<CR>
-nnoremap <Leader>qk :call DeleteCurrentFileAndBuffer()<CR>
-nnoremap <Leader>ss :mksession! .vimsession<CR>
-nnoremap <Leader>sr :so .vimsession<CR>
-nnoremap <Leader><Leader>r :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>n :NERDTree<CR>
-nnoremap <Leader>f :NERDTreeFind<CR>
-
-"Buffer
-nnoremap <Leader>tn :tabn<CR>
-nnoremap <Leader>tp :tabp<CR>
-nnoremap <Leader>tc :tabe<CR>
-nnoremap <Leader>tx :tabclose<CR>
-
-" Jump window
-nmap <Leader>ww <Plug>(choosewin)
-
-" Open terminal
-nnoremap <Leader>at :call FloatermNew('"tig"')<CR>
-
-" FloatTerm
-nnoremap   <silent>   <F7>    :FloatermNew<CR>
-tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
-nnoremap   <silent>   <F8>    :FloatermPrev<CR>
-tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
-nnoremap   <silent>   <F9>    :FloatermNext<CR>
-tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
-nnoremap   <silent>   <F12>   :FloatermToggle<CR>
-tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-
-
-nnoremap <silent> <Leader>pf :Files<CR>
-nnoremap <silent> <Leader>pt :Buffers<CR>
-nnoremap <silent> <Leader>pb :Buffers<CR>
-nnoremap <silent> <Leader>pr :History<CR>
-nnoremap <silent> <c-\> :call esearch#init()<CR>
-
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-nnoremap <silent> \ :Rg<CR>
-nnoremap <silent> <c-o> :CocList outline<CR>
 
 " Choose win
 let g:choosewin_overlay_enable = 1
@@ -299,25 +212,25 @@ function! LightLineFilename()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'onehalfdark',
-      \ 'active': {
-      \   'left': [ [], [ 'filename' ] ],
-      \   'right': [ [], ['cocstatus', 'lineinfo', 'icongitbranch'] ]
-      \ },
-      \ 'inactive': {
-      \   'left': [ ['fileicon'], [ 'filename' ] ],
-      \   'right': []
-      \ },
-      \ 'component': { 'lineinfo': ' %2p%% %3l:%-2v' },
-      \ 'component_function': {
-      \   'fileicon': 'MyFiletype',
-      \   'icongitbranch': 'DrawGitBranchInfo',
-      \   'iconline': 'DrawLineInfo',
-      \   'gitbranch': 'fugitive#head',
-      \   'cocstatus': 'coc#status',
-      \   'filename': 'LightLineFilename',
-      \ },
-      \ }
+     \ 'colorscheme': 'onehalfdark',
+     \ 'active': {
+     \   'left': [ [], [ 'filename' ] ],
+     \   'right': [ [], ['cocstatus', 'lineinfo', 'icongitbranch'] ]
+     \ },
+     \ 'inactive': {
+     \   'left': [ ['fileicon'], [ 'filename' ] ],
+     \   'right': []
+     \ },
+     \ 'component': { 'lineinfo': ' %2p%% %3l:%-2v' },
+     \ 'component_function': {
+     \   'fileicon': 'MyFiletype',
+     \   'icongitbranch': 'DrawGitBranchInfo',
+     \   'iconline': 'DrawLineInfo',
+     \   'gitbranch': 'fugitive#head',
+     \   'cocstatus': 'coc#status',
+     \   'filename': 'LightLineFilename',
+     \ },
+     \ }
 
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
@@ -344,8 +257,117 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+" Nerdtree Sync
+let g:nerdtree_sync_cursorline = 1
+let g:NERDTreeHighlightCursorline = 1
 
+" Multiple Cursor
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-d>'
+let g:multi_cursor_select_all_word_key = '<C-L>'
+let g:multi_cursor_start_key           = 'g<C-d>'
+let g:multi_cursor_select_all_key      = 'g<C-L>'
+let g:multi_cursor_next_key            = '<C-d>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-i>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" Some custom style
+highlight Normal guibg=NONE
+highlight SignColumn guibg=NONE
+highlight EasyMotionTargetDefault guifg=#ffb400
+highlight WildMenu guifg=#87bb7c
+highlight VertSplit guifg=#1f2329 guibg=NONE
+highlight CocInfoSign guifg=#55606d
+highlight LineNr guifg=#454A54
+highlight DiffAdd guibg=NONE
+highlight DiffAdded guibg=NONE
+highlight DiffChange guibg=NONE
+highlight DiffDelete guibg=NONE
+highlight EndOfBuffer guifg=#282c34
+
+" Key binding
+
+" I don't use recording, don't judge me
+map q <Nop>
+inoremap jk <ESC>
+vnoremap <M-/> <Esc>/\%V
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap L l
+nnoremap H h
+nnoremap l w
+nnoremap h b
+
+vnoremap p "_dP
+
+" Map Emacs like movement in Insert mode
+" inoremap <C-n> <Down>
+" inoremap <C-p> <Up>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>^
+
+" Remap scrolling
+" nnoremap <C-k> <C-u>
+" nnoremap <C-j> <C-d>
+
+let mapleader=" "
+nnoremap <Leader>l :vsplit<CR>
+nnoremap <Leader>k :split<CR>
+nnoremap <Leader>wh :wincmd h<CR>
+nnoremap <Leader>wl :wincmd l<CR>
+nnoremap <Leader>wk :wincmd k<CR>
+nnoremap <Leader>wj :wincmd j<CR>
+nnoremap <Leader>w= :wincmd =<CR>
+nnoremap <Leader>e :QuickRunExecute<CR>
+nnoremap <Leader>wb :e#<CR>
+nnoremap <Leader>qq :bd<CR>
+nnoremap <Leader>qk :call DeleteCurrentFileAndBuffer()<CR>
+nnoremap <Leader>ss :mksession! .vimsession<CR>
+nnoremap <Leader>sr :so .vimsession<CR>
+nnoremap <Leader><Leader>r :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>n :NERDTree<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
+
+"Buffer
+nnoremap <Leader>tn :tabn<CR>
+nnoremap <Leader>tp :tabp<CR>
+nnoremap <Leader>tc :tabe<CR>
+nnoremap <Leader>tx :tabclose<CR>
+
+" Jump window
+nmap <Leader>ww <Plug>(choosewin)
+
+" FloatTerm
+nnoremap   <silent>   <F7>    :FloatermNew<CR>
+tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
+nnoremap   <silent>   <F8>    :FloatermPrev<CR>
+tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
+nnoremap   <silent>   <F9>    :FloatermNext<CR>
+tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
+
+nnoremap <silent> <Leader>pf :Files<CR>
+nnoremap <silent> <Leader>pt :Buffers<CR>
+nnoremap <silent> <Leader>pb :Buffers<CR>
+nnoremap <silent> <Leader>pr :History<CR>
+nnoremap <silent> <c-\> :call esearch#init()<CR>
+
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+nnoremap <silent> \ :Rg<CR>
+nnoremap <silent> <c-o> :CocList outline<CR>
+
+let g:coc_snippet_next = '<tab>'
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -410,36 +432,3 @@ endfunction
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{StatusDiagnostic()}
-
-" Nerdtree Sync
-let g:nerdtree_sync_cursorline = 1
-let g:NERDTreeHighlightCursorline = 1
-
-" Multiple Cursor
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key      = '<C-d>'
-let g:multi_cursor_select_all_word_key = '<C-L>'
-let g:multi_cursor_start_key           = 'g<C-d>'
-let g:multi_cursor_select_all_key      = 'g<C-L>'
-let g:multi_cursor_next_key            = '<C-d>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-i>'
-let g:multi_cursor_quit_key            = '<Esc>'
-
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-" Some custom style
-highlight Normal guibg=NONE
-highlight SignColumn guibg=NONE
-highlight EasyMotionTargetDefault guifg=#ffb400
-highlight WildMenu guifg=#87bb7c
-highlight VertSplit guifg=#1f2329 guibg=NONE
-highlight CocInfoSign guifg=#55606d
-highlight LineNr guifg=#454A54
-highlight DiffAdd guibg=NONE
-highlight DiffAdded guibg=NONE
-highlight DiffChange guibg=NONE
-highlight DiffDelete guibg=NONE
-highlight EndOfBuffer guifg=#282c34

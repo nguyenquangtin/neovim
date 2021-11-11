@@ -1,5 +1,7 @@
 {
   "coc.preferences.useQuickfixForLocations": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": true,
   "diagnostic.warningSign": "",
   "diagnostic.errorSign": "",
   "diagnostic.infoSign": "",
@@ -33,5 +35,7 @@
   },
   "typescript.showUnused": true,
   "javascript.showUnused": true,
-  "coc.preferences.extensionUpdateCheck": "daily"
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact", "typescript.tsx"],
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx"]
 }
