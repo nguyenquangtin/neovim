@@ -24,10 +24,20 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Auto
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
 
-let g:coc_global_extensions = ['coc-tslint-plugin','coc-tsserver','coc-css','coc-html','coc-json', 'coc-prettier' ]  " list of CoC extensions needed
+let g:coc_global_extensions = [
+\'coc-tslint-plugin',
+\'coc-tsserver',
+\'coc-css',
+\'coc-html',
+\'coc-json',
+\'coc-prettier' 
+\]  
+" list of CoC extensions needed
 " end coc auto
+
+
 
 " JS config
 let g:javascript_plugin_jsdoc = 1
@@ -84,6 +94,8 @@ set ttimeoutlen=10
 set termguicolors
 set ignorecase
 set relativenumber
+set updatetime=300
+
 
 " Vim color highlighting
 let g:Hexokinase_highlighters = ['virtual']
@@ -95,6 +107,7 @@ let g:fzf_layout = { 'window': {
       \ 'height': 0.7,
       \ 'highlight': 'Comment',
       \ 'rounded': v:false } }
+
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -102,6 +115,11 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit'
   \}
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+"Alternative to save
+nnoremap <C-s> :w<CR>
+"Alternative to quit
+nnoremap <C-Q> :wq!<CR>
 
 " Indent Guide
 let g:indentLine_char = '│'
@@ -167,6 +185,42 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 
+let g:NERDTreeGitStatusWithFlags = 1
+"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"let g:NERDTreeGitStatusNodeColorization = 1
+"let g:NERDTreeColorMapCustom = {
+    "\ "Staged"    : "#0ee375",  
+    "\ "Modified"  : "#d9bf91",  
+    "\ "Renamed"   : "#51C9FC",  
+    "\ "Untracked" : "#FCE77C",  
+    "\ "Unmerged"  : "#FC51E6",  
+    "\ "Dirty"     : "#FFBD61",  
+    "\ "Clean"     : "#87939A",   
+    "\ "Ignored"   : "#808080"   
+    "\ }                         
+
+let g:NERDTreeIgnore = ['^node_modules$']
+
+
+" sync open file with NERDTree
+" " Check if NERDTree is open or active
+function! IsNERDTreeOpen()        
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()
+
+
 " Turn off whitespaces compare and folding in vimdiff
 set splitright
 silent! set splitvertical
@@ -175,7 +229,8 @@ set diffopt+=vertical
 nnoremap <Leader>1 :diffget 1<CR>:diffupdate<CR>
 nnoremap <Leader>2 :diffget 2<CR>:diffupdate<CR>
 
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
+set clipboard=unnamed
 
 function! DeleteCurrentFileAndBuffer()
   call delete(expand('%'))
