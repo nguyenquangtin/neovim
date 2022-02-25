@@ -18,6 +18,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'huytd/vim-quickrun'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'sonph/onehalf', {'rtp': 'vim'}
 
 " Finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -32,11 +33,10 @@ let g:coc_global_extensions = [
 \'coc-css',
 \'coc-html',
 \'coc-json',
-\'coc-prettier' 
-\]  
+\'coc-prettier'
+\]
 " list of CoC extensions needed
 " end coc auto
-
 
 
 " JS config
@@ -95,6 +95,7 @@ set termguicolors
 set ignorecase
 set relativenumber
 set updatetime=300
+set scrolloff=8
 
 
 " Vim color highlighting
@@ -108,13 +109,17 @@ let g:fzf_layout = { 'window': {
       \ 'highlight': 'Comment',
       \ 'rounded': v:false } }
 
-nnoremap <C-p> :FZF<CR>
+
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+" nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :GFiles<CR>
+
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 "Alternative to save
 nnoremap <C-s> :w<CR>
@@ -186,25 +191,25 @@ let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 
 let g:NERDTreeGitStatusWithFlags = 1
-"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-"let g:NERDTreeGitStatusNodeColorization = 1
-"let g:NERDTreeColorMapCustom = {
-    "\ "Staged"    : "#0ee375",  
-    "\ "Modified"  : "#d9bf91",  
-    "\ "Renamed"   : "#51C9FC",  
-    "\ "Untracked" : "#FCE77C",  
-    "\ "Unmerged"  : "#FC51E6",  
-    "\ "Dirty"     : "#FFBD61",  
-    "\ "Clean"     : "#87939A",   
-    "\ "Ignored"   : "#808080"   
-    "\ }                         
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeColorMapCustom = {
+  \ "Staged"    : "#0ee375",
+  \ "Modified"  : "#d9bf91",
+  \ "Renamed"   : "#51C9FC",
+  \ "Untracked" : "#FCE77C",
+  \ "Unmerged"  : "#FC51E6",
+  \ "Dirty"     : "#FFBD61",
+  \ "Clean"     : "#87939A",
+  \ "Ignored"   : "#808080",
+  \}
 
 let g:NERDTreeIgnore = ['^node_modules$']
 
 
 " sync open file with NERDTree
 " " Check if NERDTree is open or active
-function! IsNERDTreeOpen()        
+function! IsNERDTreeOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
 
@@ -286,6 +291,9 @@ let g:lightline = {
      \   'filename': 'LightLineFilename',
      \ },
      \ }
+
+colorscheme onehalfdark
+
 
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
@@ -392,6 +400,8 @@ nnoremap <Leader>sr :so .vimsession<CR>
 nnoremap <Leader><Leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>n :NERDTree<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
+nnoremap <leader>pv :Vex<CR>
+
 
 "Buffer
 nnoremap <Leader>tn :tabn<CR>
@@ -464,8 +474,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>ar  <Plug>(coc-rename)
